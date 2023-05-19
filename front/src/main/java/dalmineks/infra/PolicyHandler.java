@@ -43,23 +43,4 @@ public class PolicyHandler {
         // Sample Logic //
         Order.rejectOrder(event);
     }
-
-    @StreamListener(
-        value = KafkaProcessor.INPUT,
-        condition = "headers['type']=='CookStarted'"
-    )
-    public void wheneverCookStarted_RejectOrder(
-        @Payload CookStarted cookStarted
-    ) {
-        CookStarted event = cookStarted;
-        System.out.println(
-            "\n\n##### listener RejectOrder : " + cookStarted + "\n\n"
-        );
-
-        // Comments //
-        //다른서비스에서 주문
-
-        // Sample Logic //
-        Order.rejectOrder(event);
-    }
 }

@@ -18,22 +18,19 @@ public class DeliveryController {
     @Autowired
     DeliveryRepository deliveryRepository;
 
-    @RequestMapping(
-        value = "deliveries/{id}/pickupfood",
-        method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8"
-    )
-    public Delivery pickUpFood(
-        @PathVariable(value = "id") Long id,
-        @RequestBody PickUpFoodCommand pickUpFoodCommand,
-        HttpServletRequest request,
-        HttpServletResponse response
-    ) throws Exception {
+    @RequestMapping(value = "deliveries/{id}/pickupfood", method = RequestMethod.PUT, produces = "application/json;charset=UTF-8")
+    public Delivery pickUpFood(@PathVariable(value = "id") Long id, @RequestBody PickUpFoodCommand pickUpFoodCommand, HttpServletRequest request, HttpServletResponse response) 
+    throws Exception {
         System.out.println("##### /delivery/pickUpFood  called #####");
         Optional<Delivery> optionalDelivery = deliveryRepository.findById(id);
+        
+        System.out.println("여기 들어오나?");
 
         optionalDelivery.orElseThrow(() -> new Exception("No Entity Found"));
-        Delivery delivery = optionalDelivery.get();
+        Delivery delivery = optionalDelivery.get();        
+        //라이더 정보를 추가해줌
+        delivery.setRiderId(pickUpFoodCommand.getRiderId());
+        delivery.setRiderName(pickUpFoodCommand.getRiderName());
         delivery.pickUpFood(pickUpFoodCommand);
 
         deliveryRepository.save(delivery);

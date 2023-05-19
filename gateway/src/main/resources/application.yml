@@ -58,15 +58,7 @@ spring:
         - id: rider
           uri: http://rider:8080
           predicates:
-            - Path=/deliveries/**, 
-        - id: myPage
-          uri: http://myPage:8080
-          predicates:
-            - Path=, 
-        - id: frontend
-          uri: http://frontend:8080
-          predicates:
-            - Path=/**
+            - Path=/deliveries/**
       globalcors:
         corsConfigurations:
           '[/**]':

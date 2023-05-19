@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: front
-          image: username/front:latest
+          image: username/front:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -58,7 +58,7 @@ spec:
     spec:
       containers:
         - name: store
-          image: username/store:latest
+          image: username/store:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -98,7 +98,7 @@ spec:
     spec:
       containers:
         - name: rider
-          image: username/rider:latest
+          image: username/rider:v1
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -208,21 +208,4 @@ spec:
       targetPort: 8080
   selector:
     app: rider
-
-
----
-
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: myPage
-  labels:
-    app: myPage
-spec:
-  ports:
-    - port: 8080
-      targetPort: 8080
-  selector:
-    app: myPage
 

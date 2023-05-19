@@ -33,10 +33,7 @@ public class Delivery {
     private String status;
 
     @PostPersist
-    public void onPostPersist() {
-        FoodDeliveryPicked foodDeliveryPicked = new FoodDeliveryPicked(this);
-        foodDeliveryPicked.publishAfterCommit();
-    }
+    public void onPostPersist() {}
 
     public static DeliveryRepository repository() {
         DeliveryRepository deliveryRepository = RiderApplication.applicationContext.getBean(
@@ -45,14 +42,24 @@ public class Delivery {
         return deliveryRepository;
     }
 
-    public void pickUpFood(PickUpFoodCommand pickUpFoodCommand) {}
+    public void pickUpFood(PickUpFoodCommand pickUpFoodCommand) {
+        //배송대기 중인 음식을 선택하여 배달을 시작
+        FoodDeliveryPicked foodDeliveryPicked = new FoodDeliveryPicked(this);
+        foodDeliveryPicked.publishAfterCommit();
+    }
 
     public static void deliveryRequest(CookFinished cookFinished) {
-        /** Example 1:  new item 
+        //요리가 끝나 음식을 배송대기 상태로 등록
         Delivery delivery = new Delivery();
+        delivery.setId(cookFinished.getId());
+        delivery.setOrderId(cookFinished.getOrderId());
+        delivery.setItemId(cookFinished.getItemId());
+        delivery.setStoreId(cookFinished.getStoreId());
+        delivery.setCustomerId(cookFinished.getCustomerId());
+        delivery.setAddress(cookFinished.getAddress());
+        delivery.setStatus("배송대기");
+        
         repository().save(delivery);
-
-        */
 
         /** Example 2:  finding and process
         

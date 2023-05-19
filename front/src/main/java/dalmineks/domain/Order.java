@@ -30,6 +30,7 @@ public class Order {
 
     @PostPersist
     public void onPostPersist() {
+        //주문배치에 대한 이벤트 처리                
         OrderPlaced orderPlaced = new OrderPlaced(this);
         orderPlaced.publishAfterCommit();
     }
@@ -63,26 +64,6 @@ public class Order {
         /** Example 2:  finding and process
         
         repository().findById(orderRejected.get???()).ifPresent(order->{
-            
-            order // do something
-            repository().save(order);
-
-
-         });
-        */
-
-    }
-
-    public static void rejectOrder(CookStarted cookStarted) {
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-        repository().findById(cookStarted.get???()).ifPresent(order->{
             
             order // do something
             repository().save(order);

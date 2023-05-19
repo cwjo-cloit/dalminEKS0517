@@ -59,12 +59,18 @@ public class Food {
         cookFinished.publishAfterCommit();
     }
 
-    public static void placeOrder(OrderPlaced orderPlaced) {
-        /** Example 1:  new item 
+    public static void placeOrder(OrderPlaced orderPlaced) {        
+        //주문이 배치 되면 일단 store 에도 일단 "주문 대기"로 상태로 저장한다.
         Food food = new Food();
-        repository().save(food);
+        food.setOrderId(orderPlaced.getId());
+        food.setItemId(orderPlaced.getId());
+        food.setStoreId(9000L);
+        food.setStoreName("김밥극락");
+        food.setCustomerId(orderPlaced.getCustomerId());
+        food.setAddress(orderPlaced.getAddress());
+        food.setStatus("주문대기");
 
-        */
+        repository().save(food);
 
         /** Example 2:  finding and process
         

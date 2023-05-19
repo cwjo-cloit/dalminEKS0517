@@ -15,7 +15,7 @@ public class MyOrderStatus {
     private Long id;
 
     private Long itemName;
-    private Long price;
+    private Integer price;
     private String orderStatus;
     private String foodStatus;
     private String deliveryStatus;
